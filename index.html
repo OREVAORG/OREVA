@@ -1,40 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>OREVA</title>
 
   <style>
     body {
-      font-family: Arial, sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background-color: #0f172a;
       color: white;
+      font-family: Arial, sans-serif;
       text-align: center;
-      padding-top: 80px;
     }
-img {
-  animation: fadeIn 1.5s ease-in-out;
-}
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    .container {
+      animation: fadePage 1.5s ease-in-out;
+    }
+
     img {
       width: 100px;
       margin-bottom: 24px;
+      animation: fadeLogo 1.5s ease-in-out;
+    }
+
+    h1 {
+      margin: 0;
+      letter-spacing: 4px;
+      animation: fadeText 2s ease-in-out;
+    }
+
+    p {
+      margin-top: 12px;
+      font-size: 16px;
+      opacity: 0.9;
+      animation: fadeText 2.4s ease-in-out;
+    }
+
+    @keyframes fadeLogo {
+      from {
+        opacity: 0;
+        transform: translateY(-12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeText {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadePage {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
   </style>
 </head>
 
 <body>
-  <img src="logo.PNG" alt="OREVA logo">
-  <h1>OREVA</h1>
-  <p>Official website coming soon 🚀</p>
+  <div class="container">
+    <img src="logo.PNG" alt="OREVA logo">
+    <h1>OREVA</h1>
+    <p>Official website coming soon 🚀</p>
+  </div>
 </body>
 </html>

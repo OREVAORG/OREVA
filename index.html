@@ -4,16 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>OREVA OCR – Free Image & PDF to Searchable Text</title>
+<title>OREVA OCR – Image to Text | PDF OCR | Searchable PDF</title>
 
 <!-- SEO -->
-<meta name="description" content="OREVA OCR converts images and PDFs into searchable, editable text. Download OCR-applied images and searchable PDFs. 100% free & privacy-first.">
-<meta name="keywords" content="free ocr, image to text, pdf ocr, searchable pdf, camera ocr, online ocr tool">
+<meta name="description" content="OREVA OCR converts images and PDFs into searchable, editable text. Create searchable PDFs from images and scanned documents. Free OCR tool.">
+<meta name="keywords" content="ocr, image to text, pdf to text, searchable pdf, pdf ocr, image ocr, extract text, free ocr tool">
 <meta name="robots" content="index, follow">
+<meta name="application-name" content="OREVA OCR">
+<meta name="theme-color" content="#c9a227">
 
 <!-- Open Graph -->
 <meta property="og:title" content="OREVA OCR – Free OCR Tool">
-<meta property="og:description" content="Convert non-OCR images and PDFs into searchable files directly in your browser.">
+<meta property="og:description" content="Convert images and PDFs into searchable text and OCR-applied PDFs directly in your browser.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://orevaorg.github.io/OREVA/">
 <meta property="og:image" content="https://orevaorg.github.io/OREVA/logo.PNG">
@@ -21,10 +23,10 @@
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XBGF03C7C1"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XBGF03C7C1', { anonymize_ip: true });
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-XBGF03C7C1', { anonymize_ip: true });
 </script>
 
 <!-- Libraries -->
@@ -34,284 +36,186 @@
 
 <style>
 :root {
-  --gold: #c9a227;
-  --black: #0b0b0b;
-  --gray: #f5f5f5;
-  --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --gold:#c9a227;
+  --black:#111;
+  --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
-
-body {
-  margin: 0;
-  font-family: var(--font);
-  background: white;
-  color: var(--black);
+body{
+  margin:0;
+  font-family:var(--font);
+  background:#fff;
+  color:var(--black);
 }
-
-main {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+main{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
-
-.container {
-  width: 92%;
-  max-width: 520px;
-  background: white;
-  border: 2px solid var(--gold);
-  border-radius: 14px;
-  padding: 24px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+.container{
+  width:92%;
+  max-width:520px;
+  border:2px solid var(--gold);
+  border-radius:16px;
+  padding:26px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,.1);
 }
-
-.logo {
-  width: 80px;
-  margin-bottom: 10px;
+.logo{width:80px}
+h1{letter-spacing:2px}
+.subtitle{color:#444;font-size:.95rem}
+input[type=file]{width:100%;margin:14px 0}
+button{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  background:#000;
+  color:#fff;
+  border:1px solid var(--gold);
+  border-radius:12px;
+  font-size:1rem;
+  cursor:pointer;
 }
-
-h1 {
-  letter-spacing: 2px;
+button:disabled{opacity:.6}
+textarea{
+  width:100%;
+  height:180px;
+  margin-top:14px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid var(--gold);
+  resize:none;
 }
-
-.subtitle {
-  color: #444;
-  font-size: 0.95rem;
+.progress-box{display:none;margin-top:14px}
+.progress-text{font-size:.85rem;margin-bottom:6px}
+.progress-bar{
+  height:8px;
+  background:#eee;
+  border-radius:6px;
+  overflow:hidden;
 }
-
-input[type="file"] {
-  width: 100%;
-  margin: 14px 0;
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#c9a227,#f5d76e);
+  transition:width .3s ease;
 }
-
-button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 10px;
-  background: var(--black);
-  color: white;
-  border: 1px solid var(--gold);
-  border-radius: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-textarea {
-  width: 100%;
-  height: 180px;
-  margin-top: 14px;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid var(--gold);
-  resize: none;
-}
-
-.note {
-  margin-top: 10px;
-  font-size: 0.75rem;
-  color: #555;
-}
-
-/* Progress */
-.progress-box {
-  display: none;
-  margin-top: 15px;
-}
-
-.progress-text {
-  font-size: 0.85rem;
-  margin-bottom: 6px;
-}
-
-.progress-bar {
-  height: 8px;
-  background: #eee;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #c9a227, #f5d76e);
-  transition: width 0.3s ease;
-}
-
-/* DETAILS */
-.details {
-  max-width: 900px;
-  margin: auto;
-  padding: 40px 20px;
-  border-top: 2px solid var(--gold);
-}
-
-.details h2 {
-  margin-top: 30px;
-}
-
-.details p, .details li {
-  font-size: 0.95rem;
-  color: #333;
-  line-height: 1.6;
-}
+.note{font-size:.75rem;color:#555;margin-top:10px}
 </style>
 </head>
 
 <body>
-
 <main>
 <div class="container">
-  <img src="logo.PNG" class="logo">
-  <h1>OREVA OCR</h1>
-  <p class="subtitle">Image • PDF → Searchable Files</p>
 
-  <input type="file" id="fileInput" accept="image/*,.pdf">
+<img src="logo.PNG" class="logo">
+<h1>OREVA OCR</h1>
+<p class="subtitle">Image • PDF → Searchable PDF & Text</p>
 
-  <button id="processBtn">Apply OCR</button>
+<input type="file" id="fileInput" accept="image/*,.pdf">
+<button id="processBtn">Apply OCR</button>
 
-  <div class="progress-box" id="progressBox">
-    <div class="progress-text" id="progressText">Preparing...</div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
+<div class="progress-box" id="progressBox">
+  <div class="progress-text" id="progressText">Preparing…</div>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
   </div>
+</div>
 
-  <textarea id="output" placeholder="Extracted text will appear here..."></textarea>
+<textarea id="output" placeholder="Extracted text will appear here..."></textarea>
 
-  <button id="downloadText" disabled>Download Text (.txt)</button>
-  <button id="downloadFile" disabled>Download OCR File</button>
+<button id="downloadText" disabled>Download Text (.txt)</button>
+<button id="downloadPdf" disabled>Download Searchable PDF</button>
 
-  <div class="note">🔒 All processing happens locally in your browser.</div>
+<div class="note">🔒 OCR runs locally in your browser. No uploads.</div>
 </div>
 </main>
 
-<section class="details">
-  <h2>What is OREVA OCR?</h2>
-  <p>
-    OREVA OCR is a free, browser-based Optical Character Recognition tool that converts
-    non-searchable images and PDFs into searchable and editable text.
-  </p>
-
-  <h2>How It Works</h2>
-  <ol>
-    <li>Upload an image or PDF</li>
-    <li>OCR runs securely on your device</li>
-    <li>Text is extracted and embedded</li>
-    <li>Download searchable files instantly</li>
-  </ol>
-
-  <h2>Supported Files</h2>
-  <ul>
-    <li>Images (JPG, PNG, scanned photos)</li>
-    <li>PDFs (scanned / non-searchable)</li>
-  </ul>
-
-  <h2>Privacy First</h2>
-  <p>
-    Files never leave your device. No uploads, no storage, no tracking of content.
-    Only anonymous analytics are used to improve performance.
-  </p>
-</section>
-
 <script>
-const fileInput = document.getElementById("fileInput");
-const output = document.getElementById("output");
-const processBtn = document.getElementById("processBtn");
-const downloadTextBtn = document.getElementById("downloadText");
-const downloadFileBtn = document.getElementById("downloadFile");
+const fileInput=document.getElementById("fileInput");
+const processBtn=document.getElementById("processBtn");
+const output=document.getElementById("output");
+const downloadTextBtn=document.getElementById("downloadText");
+const downloadPdfBtn=document.getElementById("downloadPdf");
+const progressBox=document.getElementById("progressBox");
+const progressFill=document.getElementById("progressFill");
+const progressText=document.getElementById("progressText");
 
-const progressBox = document.getElementById("progressBox");
-const progressFill = document.getElementById("progressFill");
-const progressText = document.getElementById("progressText");
+let extractedText="";
+let pdfBlob=null;
 
-let extractedText = "";
-let finalBlob = null;
-
-function updateProgress(p, text) {
-  progressBox.style.display = "block";
-  progressFill.style.width = p + "%";
-  progressText.textContent = text;
+function updateProgress(p,msg){
+  progressBox.style.display="block";
+  progressFill.style.width=p+"%";
+  progressText.textContent=msg+" • "+Math.round(p)+"%";
 }
 
-processBtn.onclick = async () => {
-  const file = fileInput.files[0];
-  if (!file) return alert("Upload an image or PDF");
+processBtn.onclick=async()=>{
+  const file=fileInput.files[0];
+  if(!file) return alert("Upload an image or PDF");
 
-  extractedText = "";
-  output.value = "";
-  finalBlob = null;
-  processBtn.disabled = true;
+  processBtn.disabled=true;
+  extractedText="";
+  output.value="";
+  updateProgress(5,"Preparing");
 
-  updateProgress(10, "Preparing file...");
+  const { jsPDF }=window.jspdf;
+  const outPdf=new jsPDF();
 
-  if (file.type === "application/pdf") {
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const pdf = await pdfjsLib.getDocument(reader.result).promise;
-      const { jsPDF } = window.jspdf;
-      const pdfOut = new jsPDF();
+  if(file.type==="application/pdf"){
+    const reader=new FileReader();
+    reader.onload=async()=>{
+      const pdf=await pdfjsLib.getDocument(reader.result).promise;
+      for(let i=1;i<=pdf.numPages;i++){
+        updateProgress((i/pdf.numPages)*80,`Page ${i}/${pdf.numPages}`);
+        const page=await pdf.getPage(i);
+        const vp=page.getViewport({scale:2});
+        const canvas=document.createElement("canvas");
+        canvas.width=vp.width;canvas.height=vp.height;
+        await page.render({canvasContext:canvas.getContext("2d"),viewport:vp}).promise;
 
-      for (let i = 1; i <= pdf.numPages; i++) {
-        updateProgress(20 + (i/pdf.numPages)*50, `Processing page ${i}/${pdf.numPages}`);
-        const page = await pdf.getPage(i);
-        const viewport = page.getViewport({ scale: 2 });
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-        await page.render({ canvasContext: ctx, viewport }).promise;
-
-        const res = await Tesseract.recognize(canvas, "eng", {
-          logger: m => m.progress && updateProgress(40 + m.progress*40, "Running OCR...")
-        });
-
-        extractedText += res.data.text + "\n\n";
-        if (i > 1) pdfOut.addPage();
-        pdfOut.text(res.data.text, 10, 10);
+        const res=await Tesseract.recognize(canvas,"eng");
+        extractedText+=res.data.text+"\n\n";
+        if(i>1) outPdf.addPage();
+        outPdf.text(res.data.text,10,10);
       }
-
-      finalBlob = pdfOut.output("blob");
-      finish();
+      finish(outPdf);
     };
     reader.readAsArrayBuffer(file);
-  } else {
-    const res = await Tesseract.recognize(file, "eng", {
-      logger: m => m.progress && updateProgress(30 + m.progress*60, "Running OCR...")
+  }else{
+    updateProgress(20,"Processing image");
+    const res=await Tesseract.recognize(file,"eng",{
+      logger:m=>m.progress&&updateProgress(20+m.progress*60,"Running OCR")
     });
-    extractedText = res.data.text;
-    finalBlob = file;
-    finish();
+    extractedText=res.data.text;
+    outPdf.text(extractedText,10,10);
+    finish(outPdf);
   }
 };
 
-function finish() {
-  updateProgress(100, "Completed");
-  output.value = extractedText;
-  processBtn.disabled = false;
-  downloadTextBtn.disabled = false;
-  downloadFileBtn.disabled = false;
+function finish(pdf){
+  updateProgress(100,"Completed");
+  output.value=extractedText;
+  pdfBlob=pdf.output("blob");
+  processBtn.disabled=false;
+  downloadTextBtn.disabled=false;
+  downloadPdfBtn.disabled=false;
 }
 
-downloadTextBtn.onclick = () => {
-  const blob = new Blob([extractedText], { type: "text/plain" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "oreva-ocr-text.txt";
+downloadTextBtn.onclick=()=>{
+  const b=new Blob([extractedText],{type:"text/plain"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(b);
+  a.download="oreva-ocr-text.txt";
   a.click();
 };
 
-downloadFileBtn.onclick = () => {
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(finalBlob);
-  a.download = "oreva-ocr-file";
+downloadPdfBtn.onclick=()=>{
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(pdfBlob);
+  a.download="oreva-searchable-ocr.pdf";
   a.click();
 };
 </script>
-
 </body>
 </html>
